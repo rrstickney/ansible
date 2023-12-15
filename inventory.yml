@@ -1,0 +1,7 @@
+swarm:
+  hosts:
+    swarm-queen.icestation.is:
+    swarm-worker-00[1:2].icestation.is:
+octopi:
+  hosts:
+    octopi.icestation.is:
