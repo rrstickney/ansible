@@ -1,0 +1,15 @@
+- name: install updates
+  hosts: all
+  become: true
+  tasks:
+  - name: yum update
+    include_tasks: tasks/yum.yml
+    when: ansible_os_family == "RedHat"
+
+  - name: apt-get update && apt-get dist-upgrade
+    include_tasks: tasks/apt.yml
+    when: ansible_os_family == "Debian"
+
+  - name: reboot if needed and wanted
+    include_tasks: tasks/reboot.yml
+    when: perform_reboot | default(false)
