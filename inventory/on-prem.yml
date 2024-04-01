@@ -4,4 +4,4 @@ swarm:
     swarm-worker-00[1:2].icestation.is:
 octopi:
   hosts:
-    octopi.icestation.is:
+    octoprint.icestation.is:
