@@ -18,26 +18,7 @@ This playbook is designed to execute shell commands on remote hosts and display 
    cd playbooks/shell_command
    ```
 
-3. **Create a playbook YAML file:**
-
-   Create a playbook YAML file (e.g., `shell_command.yml`) with the following content:
-
-   ```yaml
-   ---
-   - name: Run Shell Commands
-     hosts: all
-     gather_facts: false
-     tasks:
-       - name: run command # noqa
-         shell: "{{ shell_command }}"
-         register: shell_output
-
-       - name: Display shell command output
-         debug:
-           var: shell_output.stdout_lines
-   ```
-
-4. **Run the playbook:**
+3. **Run the playbook:**
 
    Execute the playbook by providing the shell command as a variable using the `--extra-vars` option:
 
