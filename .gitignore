@@ -1,3 +1,5 @@
-gnore Visual Studio Code folders
+#ignore Visual Studio Code folders
 .vscode/
+#ignore linter file
+.ansible-lint
 
