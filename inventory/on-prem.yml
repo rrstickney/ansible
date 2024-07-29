@@ -1,7 +1,10 @@
-swarm:
-  hosts:
-    swarm-queen.icestation.is:
-    swarm-worker-00[1:2].icestation.is:
-octopi:
-  hosts:
-    octoprint.icestation.is:
+[swarm]
+192.168.7.6
+192.168.7.7
+192.168.7.8
+
+[swarm:vars]
+ansible_user=redhat
+ansible_ssh_private_key_file='~/.ssh/redhat_rsa'
+keepalived_router_id=50
+keepalived_vip=192.168.7.5
