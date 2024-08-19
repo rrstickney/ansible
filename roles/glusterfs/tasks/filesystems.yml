@@ -1,0 +1,17 @@
+---
+- name: Create mount point.
+  file:
+    path: "{{gluster_volume}}/{{inventory_hostname}}"
+    state: directory
+
+- name: Make xfs filesystem on data drive.
+  filesystem:
+    fstype: xfs
+    dev: "{{gluster_data_vol}}"
+
+- name: Mount xfs filestyem to mount point.
+  mount:
+    path: "{{gluster_volume}}/{{inventory_hostname}}"
+    src: "{{gluster_data_vol}}"
+    fstype: xfs
+    state: mounted
