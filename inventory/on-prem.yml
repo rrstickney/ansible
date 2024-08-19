@@ -1,7 +1,19 @@
-[swarm]
+
+[swarm_managers]
 192.168.7.6
 192.168.7.7
 192.168.7.8
+
+[swarm_managers:vars]
+keepalived_router_id=50
+keepalived_vip=192.168.7.5
+
+[swarm_workers]
+[swarm_workers:vars]
+
+[swarm:children]
+swarm_managers
+swarm_workers
 
 [swarm:vars]
 ansible_user=redhat
