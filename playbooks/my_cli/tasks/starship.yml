@@ -1,24 +1,16 @@
-- name: Gather starship installed version
-  shell: starship --version
-  register: starship_installed_version
-  check_mode: false
-  changed_when: false
-  failed_when: false
+- name: check for starship
+  command: which starship
+  register: starship_check
+  ignore_errors: true
 
-- name: set fact for installed starship version
-  set_fact:
-    starship_installed_version_number: "{{ starship_installed_version.stdout | regex_search('starship ([0-9.]+)', '\\1') | default('0.0.0') }}"
+- name: Download starship installer
+  get_url:
+    url: https://starship.rs/install.sh
+    dest: /tmp/starship_installer.sh
+    mode: +x
+  when: starship_check.rc != 0
 
-- name: Get the latest release of the repository
-  github_release:
-    repository: "starship/starship"
-  register: starship_latest_release
-
-- name: Extract latest starship version
-  set_fact:
-    starship_latest_version_number: "{{ starship_latest_release.release.tag_name | regex_replace('^v', '') }}"
-
-- name: Install starship if the latest version is newer than the installed version
-  ansible.builtin.shell: |
-    curl -sS https://starship.rs/install.sh | sh
-  when: starship_latest_version_number is version(starship_installed_version_number, '>')
+- name: Run starship installer
+  become: true
+  shell: /tmp/starship_installer.sh --yes
+  when: starship_check.rc !=0
