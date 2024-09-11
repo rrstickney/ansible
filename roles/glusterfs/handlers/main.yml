@@ -1,0 +1,6 @@
+---
+handler:
+  - name: restart glusterd
+    systemd_service:
+      state: restarted
+      name: glusterd

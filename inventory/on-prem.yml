@@ -1,8 +1,8 @@
 
 [swarm_managers]
-192.168.7.6
-192.168.7.7
-192.168.7.8
+apollo.icestation.is
+bepicolombo.icestation.is
+aquarius.icestation.is
 
 [swarm_managers:vars]
 keepalived_router_id=50
@@ -16,7 +16,7 @@ swarm_managers
 swarm_workers
 
 [swarm:vars]
-ansible_user=redhat
-ansible_ssh_private_key_file='~/.ssh/redhat_rsa'
+ansible_user=rrstickney
+ansible_ssh_private_key_file='~/.ssh/id_rsa'
 keepalived_router_id=50
 keepalived_vip=192.168.7.5

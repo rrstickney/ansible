@@ -1,0 +1,46 @@
+---
+- name: Check if Gluster volume is initialized
+  stat:
+    path: "{{gluster_volume_path}}/{{inventory_hostname}}/brick"
+  register: glustervolume
+
+- name: Verify Gluster volume path
+  file:
+    path: "{{gluster_volume_path}}/{{inventory_hostname}}/brick"
+    state: directory
+
+- name: Initialize Gluster Cluster (on first node)
+  when: glustervolume.stat.exists == false and inventory_hostname == groups['swarm_managers'][0]
+  gluster_peer:
+    state: present
+    nodes: "{{ groups['swarm_managers'] }}"
+
+- name: Create Gluster Volume (on first node)
+  when: glustervolume.stat.exists == false and inventory_hostname == groups['swarm_managers'][0]
+  gluster_volume:
+    name: "{{ gluster_volume_name }}"
+    state: present
+    brick:
+      - "{{ groups['swarm_managers'][0] }}:{{ gluster_volume_path }}/{{ groups['swarm_managers'][0] }}/brick"
+      - "{{ groups['swarm_managers'][1] }}:{{ gluster_volume_path }}/{{ groups['swarm_managers'][1] }}/brick"
+      - "{{ groups['swarm_managers'][2] }}:{{ gluster_volume_path }}/{{ groups['swarm_managers'][2] }}/brick"
+    replica: 3
+
+- name: Secure Gluster Volume (on first node)
+  when: inventory_hostname == groups['swarm_managers'][0]
+  gluster_volume:
+    name: "{{ gluster_volume_name }}"
+    state: present
+    options:
+      auth.allow: "{{ groups['swarm'] | join(',') }}"
+
+- name: Start Gluster Volume (on first node)
+  when: glustervolume.stat.exists == false and inventory_hostname == groups['swarm_managers'][0]
+  gluster_volume:
+    name: "{{ gluster_volume_name }}"
+    state: started
+
+- name: Wait 60s for Gluster volume to be replicated
+  when: glustervolume.stat.exists == false and inventory_hostname == groups['swarm_managers'][0]
+  pause:
+    seconds: 60

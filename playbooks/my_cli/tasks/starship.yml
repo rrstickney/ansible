@@ -1,0 +1,16 @@
+- name: check for starship
+  command: which starship
+  register: starship_check
+  ignore_errors: true
+
+- name: Download starship installer
+  get_url:
+    url: https://starship.rs/install.sh
+    dest: /tmp/starship_installer.sh
+    mode: +x
+  when: starship_check.rc != 0
+
+- name: Run starship installer
+  become: true
+  shell: /tmp/starship_installer.sh --yes
+  when: starship_check.rc !=0

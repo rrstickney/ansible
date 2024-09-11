@@ -1,0 +1,16 @@
+- name: ensure fonts directory
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.fonts"
+    state: directory
+
+- name: ensure nerd fonts
+  shell: "ls {{ lookup('env', 'HOME') }}/.fonts/Space*Nerd*Font*Complete*"
+  register: font_exists
+  ignore_errors: true
+
+- name: Download SpaceMono
+  when: font_exists is failed
+  ansible.builtin.unarchive:
+    src: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/SpaceMono.zip
+    dest: "{{ lookup('env', 'HOME') }}/.fonts/"
+    remote_src: true
