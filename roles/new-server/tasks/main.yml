@@ -1,0 +1,16 @@
+---
+- name: Install some packages
+  package:
+    name:
+      - neofetch
+      - net-tools
+      - python3-pip
+      - unzip
+      - vim
+    state: present
+
+- name: Install some Python packages using pip
+  pip:
+    name:
+      - github3.py
+    state: present
