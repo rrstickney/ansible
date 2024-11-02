@@ -1,0 +1,23 @@
+---
+# make sure the base requirements are met.
+# lol, not this time - import_playbook: ../deploy-new-server/main.yml
+
+- name: "does initial configurations for new servers"
+  hosts: all
+  become: true
+  vars_files:
+    - vars/main.yml
+
+  pre_tasks:
+    - name: update apt cache
+      become: true
+      apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+  roles:
+    - ../../roles/new-server
+
+  tasks:
+    - debug:
+        msg: "This playbook is for deploy-new-servers"
