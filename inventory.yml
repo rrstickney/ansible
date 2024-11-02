@@ -1,0 +1,11 @@
+---
+[swarm_managers]
+apollo.icestation.is
+aquarius.icestation.is
+bepicolombo.icestation.is
+
+[swarm_workers]
+
+[swarm_cluster:children]
+swarm_managers
+swarm_workers
