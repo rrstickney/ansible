@@ -1,9 +1,9 @@
 ---
 # make sure the base requirements are met.
-# lol, not this time - import_playbook: ../deploy-new-server/main.yml
+- import_playbook: ../deploy-new-server/main.yml
 
-- name: "does initial configurations for new servers"
-  hosts: all
+- name: "Deploys docker swarm clusters and adds nodes to existing swarm clusters"
+  hosts: swarm
   become: true
   vars_files:
     - vars/main.yml
@@ -16,9 +16,8 @@
         cache_valid_time: 3600
 
   roles:
-    - ../../roles/new-server
-    - ../..//roles/docker
+    - ../../docker
 
   tasks:
     - debug:
-        msg: "This playbook is for deploy-new-servers"
+        msg: "This playbook is for deploy-pi-swarm-nodes"
