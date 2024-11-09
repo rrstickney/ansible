@@ -10,6 +10,6 @@ docker_packages:
   - containerd.io
   - python3-docker
 docker_apt_arch: "{{ 'arm64' if 'aarch64' in ansible_architecture else 'armhf' if 'arm' in ansible_architecture else 'amd64' }}"
-docker_apt_repo: deb [arch={{ docker_apt_arch }} https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable
+docker_apt_repo: deb [arch={{ docker_apt_arch }}] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable
 docker_repo_key: https://download.docker.com/linux/ubuntu/gpg
 docker_repo_key_id: 0EBFCD88

@@ -1,2 +1,30 @@
 ---
-# empty vars file
+#Firewall role variables
+
+firewall_state: started
+firewall_enabled_at_boot: true
+firewall_flush_rules_and_chains: true
+firewall_template: firewall.bash.j2
+firewall_allowed_tcp_ports:
+  - "22"
+  - "25"
+  - "80"
+  - "443"
+  - "24007:2408"
+  - "49152:49156"
+  - "7946"
+firewall_allowed_udp_ports:
+  - "4789"
+  - "7946"
+firewall_enable_ipv6: false
+firewall_log_dropped_packets: true
+firewall_disable_firewalld: true
+firewall_disable_ufw: true
+
+#GlusterFS role variables
+gluster_data_device: "/dev/mmcblk0p3"
+
+#Keepalived role variables
+keepalived_router_id: "50"
+keepalived_auth_pass: "{{ lookup('env', 'KEEPALIVED_AUTH_PASS') }}"
+keepalived_vip: 192.168.7.6

@@ -1,2 +1,5 @@
 ---
-# defaults file for glusterfs
+gluster_data_device: "/dev/sdb"
+gluster_mount_path: "/swarm_data"
+gluster_volume_name: "swarm_data"
+gluster_volume_path: "/glusterfs/swarm"

@@ -1,2 +1,20 @@
 ---
-# tasks file for keepalived
+- name: Install keepalived.
+  apt:
+    name: keepalived
+    state: present
+- name: Set priority fact.
+  set_fact:
+    keepalived_priority: "{{ 100 - (10 * (play_hosts.index(inventory_hostname))) }}"
+  when: keepalived_priority is not defined
+
+- name: Create keepalived configuration file.
+  template:
+    src: keepalived.conf.j2
+    dest: /etc/keepalived/keepalived.conf
+  notify: restart_keepalived
+
+- name: Enable the keepalived service.
+  service:
+    name: keepalived
+    state: started

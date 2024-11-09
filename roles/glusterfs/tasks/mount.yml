@@ -1,0 +1,13 @@
+---
+- name: Verify gluster mount path exists.
+  file:
+    path: "{{ gluster_mount_path }}"
+    state: directory
+
+- name: Mount gluster volume path to gluster mount path.
+  mount:
+    path: "{{ gluster_mount_path }}"
+    src: "localhost://{{ gluster_volume_name }}"
+    fstype: glusterfs
+    opts: defaults,_netdev,backupvolfile-server=localhost
+    state: mounted

@@ -3,20 +3,24 @@
 - import_playbook: ../deploy-new-server/main.yml
 
 - name: "Deploys docker swarm clusters and adds nodes to existing swarm clusters"
-  hosts: swarm
+  hosts: swarm_cluster
   become: true
   vars_files:
     - vars/main.yml
 
   pre_tasks:
-    - name: update apt cache
+    - name: Update apt cache
       become: true
       apt:
         update_cache: true
         cache_valid_time: 3600
 
   roles:
-    - ../../docker
+    - geerlingguy.firewall
+    - ../../roles/docker
+    - ../../roles/glusterfs
+    - ../../roles/docker-swarm
+    - { role: ../../roles/keepalived, when: "'swarm_managers' in group_names" }
 
   tasks:
     - debug:
