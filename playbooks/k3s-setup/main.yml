@@ -1,9 +1,9 @@
 ---
 # make sure the base requirements are met.
-# lol, not this time - import_playbook: ../deploy-new-server/main.yml
+#- import_playbook: ../deploy-new-server/main.yml
 
-- name: "does initial configurations for new servers"
-  hosts: all
+- name: "k3s raspberry pi cluster"
+  hosts: k3s
   become: true
   vars_files:
     - vars/main.yml
@@ -16,8 +16,8 @@
         cache_valid_time: 3600
 
   roles:
-    - ../../roles/new-server
+    - ../../roles/k3s
 
   tasks:
     - debug:
-        msg: "This playbook is for deploy-new-servers"
+        msg: "This playbook is for k3s_cluster"

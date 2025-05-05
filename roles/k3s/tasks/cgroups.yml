@@ -1,0 +1,10 @@
+---
+- name: register cgroups enabled
+  command: cat /boot/firmware/cmdline.txt
+  register: cmdline
+
+- name: enable cgroups
+  command: sed -i -e 's/$/ cgroup_memory=1 cgroup_enable=memory/' /boot/firmware/cmdline.txt
+  when: "'cgroup_memory=1 cgroup_enable=memory' not in cmdline.stdout"
+  notify:
+    - restart_pi

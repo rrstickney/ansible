@@ -1,10 +1,17 @@
-[swarm_managers]
-apollo.icestation.is
-aquarius.icestation.is
-bepicolombo.icestation.is
+k3s:
+  children:
+    k3s_servers:
+    k3s_clients:
 
-[swarm_workers]
+k3s_servers:
+  hosts:
+    apollo.icestation.is:
 
-[swarm_cluster:children]
-swarm_managers
-swarm_workers
+k3s_clients:
+  hosts:
+    aquarius.icestation.is:
+    bepicolombo.icestation.is:
+
+nfs:
+  hosts:
+    calipso.icestation.is:
