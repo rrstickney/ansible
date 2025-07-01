@@ -6,12 +6,15 @@ k3s:
 k3s_servers:
   hosts:
     apollo.icestation.is:
-
+      ansible_user: rrstickney
 k3s_clients:
   hosts:
     aquarius.icestation.is:
+      ansible_user: rrstickney
     bepicolombo.icestation.is:
+      ansible_user: rrstickney
 
 nfs:
   hosts:
     calipso.icestation.is:
+      ansible_user: redhat

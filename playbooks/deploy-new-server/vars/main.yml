@@ -1,2 +1,6 @@
 ---
-# empty vars file
+node_exporter_tls_server_config:
+  cert_file: /etc/node_exporter/tls.cert
+  key_file: /etc/node_exporter/tls.key
+node_exporter_basic_auth_users:
+  { { node_user } }: { { node_user_password } }
