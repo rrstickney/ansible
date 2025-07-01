@@ -1,0 +1,4 @@
+---
+keepalived_router_id: 50
+keepalived_vip: 192.168.7.6
+keepalived_auth_pass: nasa-4-life

@@ -1,10 +1,20 @@
-[swarm_managers]
-apollo.icestation.is
-aquarius.icestation.is
-bepicolombo.icestation.is
+k3s:
+  children:
+    k3s_servers:
+    k3s_clients:
 
-[swarm_workers]
+k3s_servers:
+  hosts:
+    apollo.icestation.is:
+      ansible_user: rrstickney
+k3s_clients:
+  hosts:
+    aquarius.icestation.is:
+      ansible_user: rrstickney
+    bepicolombo.icestation.is:
+      ansible_user: rrstickney
 
-[swarm_cluster:children]
-swarm_managers
-swarm_workers
+nfs:
+  hosts:
+    calipso.icestation.is:
+      ansible_user: redhat
